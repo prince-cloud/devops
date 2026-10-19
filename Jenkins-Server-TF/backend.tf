@@ -1,12 +1,12 @@
 terraform {
   backend "s3" {
-    bucket         = "techlearnc2024"
+    bucket         = "princethedev"
     region         = "us-east-1"
     key            = "terraform.tfstate"
-    dynamodb_table = "Lock-Files"
+    use_lockfile   = true
     encrypt        = true
   }
-  required_version = ">=0.13.0"
+  required_version = ">=1.10.0"
   required_providers {
     aws = {
       version = ">= 2.7.0"

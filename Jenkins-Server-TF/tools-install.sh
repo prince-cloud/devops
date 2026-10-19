@@ -2,12 +2,12 @@
 # For Ubuntu 22.04
 # Intsalling Java
 sudo apt update -y
-sudo apt install openjdk-17-jre -y
-sudo apt install openjdk-17-jdk -y
+sudo apt install openjdk-25-jre -y
+sudo apt install openjdk-25-jdk -y
 java --version
 
 # Installing Jenkins
-curl -fsSL https://pkg.jenkins.io/debian/jenkins.io-2023.key | sudo tee \
+curl -fsSL https://pkg.jenkins.io/debian/jenkins.io-2026.key | sudo tee \
   /usr/share/keyrings/jenkins-keyring.asc > /dev/null
 echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
   https://pkg.jenkins.io/debian binary/ | sudo tee \

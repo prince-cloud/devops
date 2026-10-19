@@ -1,0 +1,6 @@
+# Private keys
+*.pem
+.terraform/
+*.tfstate
+*.tfstate.*
+.lock.hcl

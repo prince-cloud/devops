@@ -7,7 +7,7 @@ pipeline {
     environment  {
         // Define scanner home directly if using a global tool configuration for SonarScanner
         SCANNER_HOME = "${tool 'sonar-scanner'}"
-        AWS_ACCOUNT_ID = credentials('ACCOUNT_ID')
+        AWS_ACCOUNT_ID = credentials('aws-key')
         AWS_ECR_REPO_NAME = credentials('ECR_REPO2')
         AWS_DEFAULT_REGION = 'us-east-1'
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/"
@@ -21,7 +21,7 @@ pipeline {
         stage('Checkout from Git') {
             steps {
                 // Assuming Git credentials and repository are correctly setup
-                git branch: 'e2e-3-tier-DevSecOps', credentialsId: 'github-token', url: 'https://github.com/techlearn-center/DevOps.git'
+                git branch: 'e2e-3-tier-DevSecOps', credentialsId: 'github-token', url: 'https://github.com/prince-cloud/devops.git'
             }
         }
         stage('Sonarqube Analysis') {
@@ -83,21 +83,21 @@ pipeline {
         }
         stage('Checkout Code') {
             steps {
-                 git branch: 'e2e-3-tier-DevSecOps', credentialsId: 'github-token', url: 'https://github.com/techlearn-center/DevOps.git'
+                 git branch: 'e2e-3-tier-DevSecOps', credentialsId: 'github-token', url: 'https://github.com/prince-cloud/devops.git'
             }
         }
         stage('Update Kubernetes Deployment') {
              environment {
-                GIT_REPO_NAME = "DevOps"
-                GIT_USER_NAME = "techlearn-center"
+                GIT_REPO_NAME = "devops"
+                GIT_USER_NAME = "prince-cloud"
             }
             steps {
                 script {
                     dir('Kubernetes-Manifests-file/Backend') {
                         withCredentials([string(credentialsId: 'github-token', variable: 'GITHUB_TOKEN')]) {
                             sh '''
-                                git config user.email "techlearn-center@gmail.com"
-                                git config user.name "techlearn-center"
+                                git config user.email "acheampongprince227@gmail.com"
+                                git config user.name "prince-cloud"
                                 BUILD_NUMBER=${BUILD_NUMBER}
                                 echo $BUILD_NUMBER
                                 imageTag=$(grep -oP '(?<=backend:)[^ ]+' deployment.yaml)
