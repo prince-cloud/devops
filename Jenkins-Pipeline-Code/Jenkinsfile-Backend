@@ -7,8 +7,8 @@ pipeline {
     environment  {
         // Define scanner home directly if using a global tool configuration for SonarScanner
         SCANNER_HOME = "${tool 'sonar-scanner'}"
-        AWS_ACCOUNT_ID = credentials('aws-key')
-        AWS_ECR_REPO_NAME = credentials('ECR_REPO2')
+        AWS_ACCOUNT_ID = credentials('aws-account-id')
+        AWS_ECR_REPO_NAME = credentials('ECR_REP02')
         AWS_DEFAULT_REGION = 'us-east-1'
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/"
     }
@@ -21,7 +21,7 @@ pipeline {
         stage('Checkout from Git') {
             steps {
                 // Assuming Git credentials and repository are correctly setup
-                git branch: 'e2e-3-tier-DevSecOps', credentialsId: 'github-token', url: 'https://github.com/prince-cloud/devops.git'
+                git branch: 'e2e-3-tier-DevSecOps', credentialsId: 'github', url: 'https://github.com/prince-cloud/devops.git'
             }
         }
         stage('Sonarqube Analysis') {
@@ -37,7 +37,7 @@ pipeline {
             steps {
                 script {
                     // Ensure SonarQube integration is properly configured to use this step
-                    waitForQualityGate abortPipeline: false, credentialsId: 'sonar'
+                    waitForQualityGate abortPipeline: false, credentialsId: 'sonarqube'
                 }
             }
         }
@@ -83,7 +83,7 @@ pipeline {
         }
         stage('Checkout Code') {
             steps {
-                 git branch: 'e2e-3-tier-DevSecOps', credentialsId: 'github-token', url: 'https://github.com/prince-cloud/devops.git'
+                 git branch: 'e2e-3-tier-DevSecOps', credentialsId: 'github', url: 'https://github.com/prince-cloud/devops.git'
             }
         }
         stage('Update Kubernetes Deployment') {
