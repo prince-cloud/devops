@@ -29,6 +29,6 @@ spec:
         imagePullPolicy: Always
         env:
           - name: REACT_APP_BACKEND_URL
-            value: "http://techlearn-center.xyz/api/tasks"
+            value: "http://devops.entoboa.com/api/tasks"
         ports:
         - containerPort: 3000

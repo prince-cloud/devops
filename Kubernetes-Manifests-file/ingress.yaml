@@ -11,7 +11,7 @@ metadata:
 spec:
   ingressClassName: alb
   rules:
-    - host: techlearn-center.xyz
+    - host: devops.entoboa.com
       http:
         paths:
           - path: /api
