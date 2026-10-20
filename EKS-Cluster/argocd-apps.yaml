@@ -1,0 +1,83 @@
+# Argo CD applications for the three-tier app (applied by up.sh)
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: database
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/prince-cloud/devops.git
+    targetRevision: e2e-3-tier-DevSecOps
+    path: Kubernetes-Manifests-file/Database
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: three-tier
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: backend
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/prince-cloud/devops.git
+    targetRevision: e2e-3-tier-DevSecOps
+    path: Kubernetes-Manifests-file/Backend
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: three-tier
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: frontend
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/prince-cloud/devops.git
+    targetRevision: e2e-3-tier-DevSecOps
+    path: Kubernetes-Manifests-file/Frontend
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: three-tier
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ingress
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/prince-cloud/devops.git
+    targetRevision: e2e-3-tier-DevSecOps
+    path: Kubernetes-Manifests-file
+    directory:
+      recurse: false
+      include: ingress.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: three-tier
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
