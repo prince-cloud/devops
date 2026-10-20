@@ -11,7 +11,7 @@ metadata:
 spec:
   ingressClassName: alb
   rules:
-    - host: devops.princethedev.com
+    - host: 3tier-devops.princethedev.com
       http:
         paths:
           - path: /api
